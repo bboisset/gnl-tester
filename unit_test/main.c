@@ -1,3 +1,8 @@
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <stdio.h>
+
 int main (int argc, char **argv)
 {
 	int i = 1;
@@ -6,7 +11,6 @@ int main (int argc, char **argv)
 		while (i < argc)
 		{
 			char *line;
-			//line = malloc(10000 * sizeof(char*));
 			int fd = open(argv[i++], O_RDONLY);
 			while (get_next_line(fd,&line) == 1)
 			{
@@ -14,6 +18,7 @@ int main (int argc, char **argv)
 				free(line);
 			}
 			printf("%s", line);
+			free(line);
 		}
 	}
 	return (0);
